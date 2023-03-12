@@ -7,7 +7,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
                 "/../../Sampling_based_Planning/")
 
 from Node import *
-import env
+import rrt_impl.env as env
 
 
 class Utils:
