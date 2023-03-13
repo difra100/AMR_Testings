@@ -7,12 +7,14 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
                 "/../../Sampling_based_Planning/")
 
 from Node import *
-import rrt_impl.env as env
+import env
 
 
 class Utils:
     def __init__(self):
-        self.env = env.Env()
+        x_bounds = (0, 50)
+        y_bounds = (0, 30)
+        self.env = env.Env(x_bounds, y_bounds)
 
         self.delta = 0.5
         self.obs_circle = self.env.obs_circle

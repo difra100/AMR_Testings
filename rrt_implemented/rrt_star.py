@@ -6,7 +6,7 @@ import numpy as np
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
                 "/../../Sampling_based_Planning/")
 
-import rrt_impl.env as env, plotting, utils, queu
+import env, plotting, utils, queu
 
 
 class Node:
@@ -27,8 +27,9 @@ class RrtStar:
         self.iter_max = iter_max
         self.vertex = [self.s_start]
         self.path = []
-
-        self.env = env.Env()
+        x_bounds = (0, 50)
+        y_bounds = (0, 30)
+        self.env = env.Env(x_bounds, y_bounds)
         self.plotting = plotting.Plotting(x_start, x_goal)
         self.utils = utils.Utils()
 
@@ -57,6 +58,8 @@ class RrtStar:
 
         index = self.search_goal_parent()
         self.path = self.extract_path(self.vertex[index])
+        print(type(self.path[1]))
+        print(type(self.vertex[1]))
 
         self.plotting.animation(self.vertex, self.path, "rrt*, N = " + str(self.iter_max))
 
