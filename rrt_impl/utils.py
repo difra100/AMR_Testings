@@ -1,3 +1,4 @@
+import env
 import math
 import numpy as np
 import os
@@ -6,8 +7,6 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
                 "/../../Sampling_based_Planning/")
 
-
-import env
 
 class Node:
     def __init__(self, x, y):
@@ -135,3 +134,14 @@ class Utils:
     @staticmethod
     def get_dist(start, end):
         return math.hypot(end.x - start.x, end.y - start.y)
+
+
+####### USEFUL VARIABLES #########
+const_vel = 0.3  # constant velocity for steering from a node to another
+mass = 10  # mass of the robot
+a = 0.4  # distance from the front wheel of G
+b = 0.6  # distance from the rear wheel of G
+mu = 0.1  # lateral friction coefficient
+fr = 0.3  # frontal friction coefficient
+Iz = 20  # inertia moment of the robot
+g = 9.81  # gravity acceleration constant
