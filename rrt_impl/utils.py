@@ -137,11 +137,19 @@ class Utils:
 
 
 ####### USEFUL VARIABLES #########
+# all the measurements are in meters
 const_vel = 0.3  # constant velocity for steering from a node to another
-mass = 10  # mass of the robot
-a = 0.4  # distance from the front wheel of G
-b = 0.6  # distance from the rear wheel of G
-mu = 0.1  # lateral friction coefficient
-fr = 0.3  # frontal friction coefficient
-Iz = 20  # inertia moment of the robot
+mass = 116  # mass of the robot
+a = 0.37  # distance from the front wheel of G
+b = 0.55  # distance from the rear wheel of G
+mu = 0.895  # lateral friction coefficient
+fr = 0.1  # frontal friction coefficient
+Iz = 20  # inertia moment of the robot Kgm^2
 g = 9.81  # gravity acceleration constant
+d0 = 0.18  # 0 < d0 < a
+r = 0.2  # wheel radius
+max_vel = 2  # max achivable velocity
+tau_max = 125  # Nm
+t = 0.63/2  # width of the robot
+kv = 65
+kp = 1.5*kv
