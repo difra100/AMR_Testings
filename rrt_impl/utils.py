@@ -138,7 +138,6 @@ class Utils:
 
 ####### USEFUL VARIABLES #########
 # all the measurements are in meters
-const_vel = 0.3  # constant velocity for steering from a node to another
 mass = 116  # mass of the robot
 a = 0.37  # distance from the front wheel of G
 b = 0.55  # distance from the rear wheel of G
@@ -153,3 +152,6 @@ tau_max = 125  # Nm
 t = 0.63/2  # width of the robot
 kv = 65
 kp = 1.5*kv
+ka = 30
+x_bounds = (0, 50)
+y_bounds = (0, 30)
