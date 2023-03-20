@@ -155,3 +155,10 @@ kp = 1.5*kv
 ka = 30
 x_bounds = (0, 50)
 y_bounds = (0, 30)
+######## INITIAL CONDITION ##########
+xd = 0.5  # m/s
+yd = 0.5  # m/s
+thetad = -2.2  # rad/s
+xdd = 0  # m/s^2
+ydd = 0  # m/s^2
+thetadd = 0  # rad/s^2
