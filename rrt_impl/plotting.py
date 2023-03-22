@@ -109,6 +109,6 @@ class Plotting:
     @staticmethod
     def plot_path(path):
         if len(path) != 0:
-            plt.plot([x[0] for x in path], [x[1] for x in path], '-r', linewidth=2)
+            plt.plot([x[0].conf[i]  for x in path for i in range(len(x[0].conf))], [x[1].conf[i] for x in path for i in range(len(x[1].conf))], '-r', linewidth=2)
             plt.pause(0.01)
         plt.show()

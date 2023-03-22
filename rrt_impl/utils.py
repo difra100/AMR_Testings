@@ -157,7 +157,7 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 2000
+n_iters = 100
 step = 10
 ######## INITIAL CONDITION ##########
 start = 2, 2  # starting node
