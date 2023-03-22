@@ -148,7 +148,7 @@ g = 9.81  # gravity acceleration constant
 d0 = 0.18  # 0 < d0 < a
 r = 0.2  # wheel radius
 max_vel = 2  # max achivable velocity
-tau_max = 125  # Nm
+tau_max = 30  # Nm
 t = 0.63/2  # width of the robot
 kv = 65
 kp = 1.5*kv
@@ -157,7 +157,7 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 30000
+n_iters = 10000
 step = 10
 ######## INITIAL CONDITION ##########
 start = 2, 2  # starting node
