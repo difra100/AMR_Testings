@@ -1,3 +1,4 @@
+import env
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import os
@@ -5,8 +6,6 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
                 "/../../Sampling_based_Planning/")
-
-import env
 
 
 class Plotting:
@@ -19,10 +18,10 @@ class Plotting:
         self.obs_circle = self.env.obs_circle
         self.obs_rectangle = self.env.obs_rectangle
 
-    def animation(self, nodelist, path, name, animation=False):
+    def animation(self, nodelist, path, name, animation=False, steer=True):
         self.plot_grid(name)
         self.plot_visited(nodelist, animation)
-        self.plot_path(path)
+        self.plot_path(path, steer)
 
     def animation_connect(self, V1, V2, path, name):
         self.plot_grid(name)
@@ -75,7 +74,8 @@ class Plotting:
             for node in nodelist:
                 count += 1
                 if node.parent:
-                    plt.plot([node.parent.x, node.x], [node.parent.y, node.y], "-g")
+                    plt.plot([node.parent.x, node.x], [
+                             node.parent.y, node.y], "-g")
                     plt.gcf().canvas.mpl_connect('key_release_event',
                                                  lambda event:
                                                  [exit(0) if event.key == 'escape' else None])
@@ -84,7 +84,8 @@ class Plotting:
         else:
             for node in nodelist:
                 if node.parent:
-                    plt.plot([node.parent.x, node.x], [node.parent.y, node.y], "-g")
+                    plt.plot([node.parent.x, node.x], [
+                             node.parent.y, node.y], "-g")
 
     @staticmethod
     def plot_visited_connect(V1, V2):
@@ -93,10 +94,12 @@ class Plotting:
         for k in range(max(len1, len2)):
             if k < len1:
                 if V1[k].parent:
-                    plt.plot([V1[k].x, V1[k].parent.x], [V1[k].y, V1[k].parent.y], "-g")
+                    plt.plot([V1[k].x, V1[k].parent.x], [
+                             V1[k].y, V1[k].parent.y], "-g")
             if k < len2:
                 if V2[k].parent:
-                    plt.plot([V2[k].x, V2[k].parent.x], [V2[k].y, V2[k].parent.y], "-g")
+                    plt.plot([V2[k].x, V2[k].parent.x], [
+                             V2[k].y, V2[k].parent.y], "-g")
 
             plt.gcf().canvas.mpl_connect('key_release_event',
                                          lambda event: [exit(0) if event.key == 'escape' else None])
@@ -107,10 +110,15 @@ class Plotting:
         plt.pause(0.01)
 
     @staticmethod
-    def plot_path(path):
+    def plot_path(path, steer=True):
         if len(path) != 0:
-            # plt.plot([x[0].conf[i]  for x in path for i in range(len(x[0].conf))], [x[1].conf[i] for x in path for i in range(len(x[1].conf))], '-r', linewidth=2)
-            plt.plot([k[0].conf[i][0]  for k in path for i in range(len(k[0].conf))], [k[0].conf[i][1]  for k in path for i in range(len(k[0].conf))], '-r', linewidth=2)
+            if steer:
+                plt.plot([x[0].conf[i] for x in path for i in range(len(x[0].conf))], [
+                         x[1].conf[i] for x in path for i in range(len(x[1].conf))], '-r', linewidth=2)
+                # plt.plot([k[0].conf[i][0]  for k in path for i in range(len(k[0].conf))], [k[0].conf[i][1]  for k in path for i in range(len(k[0].conf))], '-r', linewidth=2)
+            else:
+                plt.plot([x[0].x for x in path], [x[0].y
+                         for x in path], '-r', linewidth=2)
 
             plt.pause(0.01)
 
