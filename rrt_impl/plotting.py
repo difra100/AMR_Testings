@@ -113,8 +113,8 @@ class Plotting:
     def plot_path(path, steer=True):
         if len(path) != 0:
             if steer:
-                plt.plot([x[0].conf[i] for x in path for i in range(len(x[0].conf))], [
-                         x[1].conf[i] for x in path for i in range(len(x[1].conf))], '-r', linewidth=2)
+                plt.plot([x[0].conf[i][0] for x in path for i in range(len(x[0].conf))], [
+                         x[0].conf[i][1] for x in path for i in range(len(x[0].conf))], '-r', linewidth=2)
                 # plt.plot([k[0].conf[i][0]  for k in path for i in range(len(k[0].conf))], [k[0].conf[i][1]  for k in path for i in range(len(k[0].conf))], '-r', linewidth=2)
             else:
                 plt.plot([x[0].x for x in path], [x[0].y
