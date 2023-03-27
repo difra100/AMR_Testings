@@ -150,7 +150,7 @@ r = 0.2  # wheel radius
 max_vel = 2  # max achivable velocity
 tau_max = 1  # Nm
 t = 0.63/2  # width of the robot
-kv = 0.0003
+kv = 1
 kp = 1.5*kv
 ka = 0.1*kv
 x_bounds = (0, 50)
@@ -161,7 +161,7 @@ n_iters = 1000
 step = 2
 ######## INITIAL CONDITION ##########
 start = 2, 2  # starting node
-goal = 10, 25  # goal node
+goal = 10, 10  # goal node
 theta = 0
 xd = 0.5  # m/s
 yd = 0.5  # m/s
