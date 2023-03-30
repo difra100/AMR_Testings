@@ -74,18 +74,18 @@ class Plotting:
             for node in nodelist:
                 count += 1
                 if node.parent:
-                    plt.plot([node.parent.x, node.x], [
-                             node.parent.y, node.y], "-g")
+                    # plt.plot([node.parent.x, node.x], [
+                    #          node.parent.y, node.y], "-g")
                     plt.gcf().canvas.mpl_connect('key_release_event',
                                                  lambda event:
                                                  [exit(0) if event.key == 'escape' else None])
                     if count % 10 == 0:
                         plt.pause(0.001)
-        else:
-            for node in nodelist:
-                if node.parent:
-                    plt.plot([node.parent.x, node.x], [
-                             node.parent.y, node.y], "-g")
+        # else:
+        #     for node in nodelist:
+        #         if node.parent:
+        #             plt.plot([node.parent.x, node.x], [
+        #                      node.parent.y, node.y], "-g")
 
     @staticmethod
     def plot_visited_connect(V1, V2):
@@ -122,9 +122,9 @@ class Plotting:
                          x[0].conf[i][1] for x in path for i in range(len(x[0].conf))], '-r', linewidth=2)
                 # plt.plot([k[0].conf[i][0]  for k in path for i in range(len(k[0].conf))], [k[0].conf[i][1]  for k in path for i in range(len(k[0].conf))], '-r', linewidth=2)
                 return
-            else:
-                plt.plot([x[0].x for x in path], [x[0].y
-                         for x in path], '-r', linewidth=2)
+            # else:
+            #     plt.plot([x[0].x for x in path], [x[0].y
+            #              for x in path], '-r', linewidth=2)
 
             plt.pause(0.01)
             return 
