@@ -147,10 +147,10 @@ Iz = 20  # inertia moment of the robot Kgm^2
 g = 9.81  # gravity acceleration constant
 d0 = 0.18  # 0 < d0 < a
 r = 0.2  # wheel radius
-max_vel = 2  # max achivable velocity
+max_vel = 2  # max achievable velocity
 tau_max = 1  # Nm
 t = 0.63/2  # width of the robot
-kv = 0.2
+kv = 65
 kp = 1.5*kv
 ka = 0.1*kv
 x_bounds = (0, 50)
@@ -158,12 +158,12 @@ y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
 n_iters = 1000
-step = 2
+step = 4
 ######## INITIAL CONDITION ##########
 start = 2, 5  # starting node
-goal = 14, 14  # goal node
+goal = 45, 25  # goal node
 
-tot_time = 14 #math.sqrt((start[0]-goal[0])**2 + (start[1]-goal[1])**2)/(max_vel - 0.5)
+tot_time = math.sqrt((start[0]-goal[0])**2 + (start[1]-goal[1])**2)/(max_vel) + 1
 
 theta = 10*math.pi/180
 xd = 0.5  # m/s
