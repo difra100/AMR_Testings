@@ -74,18 +74,17 @@ class Plotting:
             for node in nodelist:
                 count += 1
                 if node.parent:
-                    # plt.plot([node.parent.x, node.x], [
-                    #          node.parent.y, node.y], "-g")
+                    plt.plot([node.parent.x, node.x], [node.parent.y, node.y], "-g")
                     plt.gcf().canvas.mpl_connect('key_release_event',
                                                  lambda event:
                                                  [exit(0) if event.key == 'escape' else None])
                     if count % 10 == 0:
                         plt.pause(0.001)
-        # else:
-        #     for node in nodelist:
-        #         if node.parent:
-        #             plt.plot([node.parent.x, node.x], [
-        #                      node.parent.y, node.y], "-g")
+        else:
+             for node in nodelist:
+                 if node.parent:
+                     plt.plot([node.parent.x, node.x], [
+                              node.parent.y, node.y], "-g")
 
     @staticmethod
     def plot_visited_connect(V1, V2):
