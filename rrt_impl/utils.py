@@ -124,6 +124,24 @@ class Utils:
                 return True
 
         return False
+    def is_inside_obs_alternative(self, coords):
+        delta = self.delta
+
+        for (x, y, r) in self.obs_circle:
+            if math.hypot(coords[0] - x, coords[1] - y) <= r + delta:
+                return True
+
+        for (x, y, w, h) in self.obs_rectangle:
+            if 0 <= coords[0] - (x - delta) <= w + 2 * delta \
+                    and 0 <= coords[1] - (y - delta) <= h + 2 * delta:
+                return True
+
+        for (x, y, w, h) in self.obs_boundary:
+            if 0 <= coords[0] - (x - delta) <= w + 2 * delta \
+                    and 0 <= coords[1] - (y - delta) <= h + 2 * delta:
+                return True
+
+        return False
 
     @staticmethod
     def get_ray(start, end):
@@ -147,21 +165,27 @@ Iz = 20  # inertia moment of the robot Kgm^2
 g = 9.81  # gravity acceleration constant
 d0 = 0.18  # 0 < d0 < a
 r = 0.2  # wheel radius
+
+
+## BOUNDS ##
 max_vel = 2  # max achievable velocity
 tau_max = 1  # Nm
+cmd_bd = 12
+
+
 t = 0.63/2  # width of the robot
 kv = 65
 kp = 1.5*kv
 ka = 0.1*kv
 x_bounds = (0, 50)
 y_bounds = (0, 30)
-freq = 10
+freq = 100
 prob_gs = 0.1
-n_iters = 1000
-step = 4
+n_iters = 800
+step = 10
 ######## INITIAL CONDITION ##########
 start = 2, 5  # starting node
-goal = 20, 5  # goal node
+goal = 45, 25  # goal node
 
 tot_time = math.sqrt((start[0]-goal[0])**2 + (start[1]-goal[1])**2)/(max_vel) + 1
 
