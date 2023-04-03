@@ -121,8 +121,8 @@ class Plotting:
                 plt.scatter([x[0].conf[i][0] for x in path for i in range(len(x[0].conf))], [
                          x[0].conf[i][1] for x in path for i in range(len(x[0].conf))], s = 2, c = 'blue')#'-r', linewidth=1)
                 conf = path
-                plt.plot([x[0].conf[-1][0] for x in conf], [
-                         x[0].conf[-1][1] for x in conf], '-r', linewidth=2)
+                plt.scatter([x[0].conf[-1][0] for x in conf], [
+                         x[0].conf[-1][1] for x in conf], s = 30, c = 'red')
                 # plt.plot([k[0].conf[i][0]  for k in path for i in range(len(k[0].conf))], [k[0].conf[i][1]  for k in path for i in range(len(k[0].conf))], '-r', linewidth=2)
               
                 return
