@@ -18,10 +18,10 @@ class Plotting:
         self.obs_circle = self.env.obs_circle
         self.obs_rectangle = self.env.obs_rectangle
 
-    def animation(self, nodelist, path, name, animation=False, steer=True, real = False):
+    def animation(self, nodelist, path, name, animation=False, steer=True, real = False, steer2 = False):
         self.plot_grid(name)
-        self.plot_visited(nodelist, animation)
-        self.plot_path(path, steer, real)
+        # self.plot_visited(nodelist, animation)
+        self.plot_path(path, steer, real, steer2)
 
     def animation_connect(self, V1, V2, path, name):
         self.plot_grid(name)
@@ -110,7 +110,7 @@ class Plotting:
         plt.pause(0.01)
 
     @staticmethod
-    def plot_path(path, steer=True, real = False):
+    def plot_path(path, steer=True, real = False, steer2 = True):
         if len(path) != 0:
             if not steer and real:
                 conf = path
@@ -126,6 +126,9 @@ class Plotting:
                 # plt.plot([k[0].conf[i][0]  for k in path for i in range(len(k[0].conf))], [k[0].conf[i][1]  for k in path for i in range(len(k[0].conf))], '-r', linewidth=2)
               
                 return
+            elif steer2:
+                plt.scatter([x[0].confs[i][0][0] for x in path for i in range(x[0].confs.shape[0])], [
+                         x[0].confs[i][1][0] for x in path for i in range(x[0].confs.shape[0])], s = 2, c = 'blue')#'-r', linewidth=1)
             else:
                 plt.plot([x[0].x for x in path], [x[0].y
                          for x in path], '-r', linewidth=2)
