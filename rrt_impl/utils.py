@@ -124,6 +124,7 @@ class Utils:
                 return True
 
         return False
+
     def is_inside_obs_alternative(self, coords):
         delta = self.delta
 
@@ -179,15 +180,16 @@ kp = 1.5*kv
 ka = 0.1*kv
 x_bounds = (0, 50)
 y_bounds = (0, 30)
-freq = 100
+freq = 10
 prob_gs = 0.1
-n_iters = 1000
-step = 2
+n_iters = 80
+step = 8
 ######## INITIAL CONDITION ##########
 start = 2, 2  # starting node
-goal = 18, 10  # goal node
+goal = 20, 17  # goal node
 
-tot_time = math.sqrt((start[0]-goal[0])**2 + (start[1]-goal[1])**2)/(max_vel) + 1
+tot_time = math.sqrt((start[0]-goal[0])**2 +
+                     (start[1]-goal[1])**2)/(max_vel) + 1
 
 theta = 10*math.pi/180
 xd = 0.5  # m/s
