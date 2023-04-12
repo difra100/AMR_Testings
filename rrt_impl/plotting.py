@@ -20,7 +20,7 @@ class Plotting:
 
     def animation(self, nodelist, path, name, animation=False, steer=True, real=False, steer2=False):
         self.plot_grid(name)
-        self.plot_visited(nodelist, animation)
+        self.plot_visited(nodelist, animation) # Green Lines code
         self.plot_path(path, steer, real, steer2)
 
     def animation_connect(self, V1, V2, path, name):
