@@ -182,11 +182,11 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 80
+n_iters = 200
 step = 8
 ######## INITIAL CONDITION ##########
 start = 2, 2  # starting node
-goal = 20, 17  # goal node
+goal = 45, 25  # goal node
 
 tot_time = math.sqrt((start[0]-goal[0])**2 +
                      (start[1]-goal[1])**2)/(max_vel) + 1
