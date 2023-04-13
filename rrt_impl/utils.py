@@ -186,7 +186,7 @@ n_iters = 50
 step = 8
 ######## INITIAL CONDITION ##########
 start = 2, 2  # starting node
-goal = 2.5, 2.5  # goal node
+goal = 20.5, 20.5  # goal node
 
 tot_time = math.sqrt((start[0]-goal[0])**2 +
                      (start[1]-goal[1])**2)/(max_vel) + 1
