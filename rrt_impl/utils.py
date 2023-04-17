@@ -22,7 +22,7 @@ class Utils:
         y_bounds = (0, 30)
         self.env = env.Env(x_bounds, y_bounds)
 
-        self.delta = 0.5
+        self.delta = 0.4
         self.obs_circle = self.env.obs_circle
         self.obs_rectangle = self.env.obs_rectangle
         self.obs_boundary = self.env.obs_boundary
@@ -182,11 +182,11 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 50
+n_iters = 300
 step = 8
 ######## INITIAL CONDITION ##########
 start = 2, 2  # starting node
-goal = 20.5, 20.5  # goal node
+goal = 10, 15  # goal node
 
 tot_time = math.sqrt((start[0]-goal[0])**2 +
                      (start[1]-goal[1])**2)/(max_vel) + 1

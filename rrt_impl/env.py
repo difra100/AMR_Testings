@@ -8,10 +8,10 @@ class Env:
 
     def obs_boundary(self):
         obs_boundary = [
-            [0, 0, 1, self.y_range[-1]],
-            [0, self.y_range[-1], self.x_range[-1], 1],
-            [1, 0, self.x_range[-1], 1],
-            [self.x_range[-1], 1, 1, self.y_range[-1]]
+            [0, 0, 0.25, self.y_range[-1]],
+            [0, self.y_range[-1], self.x_range[-1], 0.25],
+            [0.25, 0, self.x_range[-1], 0.25],
+            [self.x_range[-1], 0.25, 0.25, self.y_range[-1]]
         ]
         return obs_boundary
 
