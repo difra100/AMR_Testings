@@ -22,7 +22,7 @@ class Utils:
         y_bounds = (0, 30)
         self.env = env.Env(x_bounds, y_bounds)
 
-        self.delta = 0.4
+        self.delta = 1
         self.obs_circle = self.env.obs_circle
         self.obs_rectangle = self.env.obs_rectangle
         self.obs_boundary = self.env.obs_boundary
