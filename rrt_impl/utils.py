@@ -170,7 +170,7 @@ r = 0.2  # wheel radius
 
 ## BOUNDS ##
 max_vel = 2  # max achievable velocity
-tau_max = 1  # Nm
+tau_max = 250  # Nm
 cmd_bd = 12
 
 
@@ -181,12 +181,12 @@ ka = 0.1*kv
 x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
-prob_gs = 0.1
-n_iters = 300
+prob_gs = 0.2
+n_iters = 1000
 step = 8
 ######## INITIAL CONDITION ##########
 start = 2, 2  # starting node
-goal = 10, 15  # goal node
+goal = 45, 25  # goal node
 
 tot_time = math.sqrt((start[0]-goal[0])**2 +
                      (start[1]-goal[1])**2)/(max_vel) + 1

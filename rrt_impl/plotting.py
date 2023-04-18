@@ -84,8 +84,10 @@ class Plotting:
         else:
             for node in nodelist:
                 if node.parent:
-                    plt.plot([node.parent.x, node.x], [
-                             node.parent.y, node.y], "-g")
+                    plt.scatter([node.confs[i][0][0] for i in range(node.confs.shape[0])], [
+                    node.confs[i][1][0] for i in range(node.confs.shape[0])], s=0.5, c='green')
+                    plt.scatter([node.x], [
+                    node.y], s=1, c='green')
 
     @staticmethod
     def plot_visited_connect(V1, V2):
