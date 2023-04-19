@@ -175,14 +175,14 @@ cmd_bd = 12
 
 
 t = 0.63/2  # width of the robot
-kv = 65
+kv = 1#65
 kp = 1.5*kv
 ka = 0.1*kv
 x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.2
-n_iters = 1000
+n_iters = 500
 step = 8
 ######## INITIAL CONDITION ##########
 start = 2, 2  # starting node
