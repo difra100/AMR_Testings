@@ -139,9 +139,9 @@ class Plotting:
                 return
             elif steer2:
                 plt.scatter([x[0].confs[i][0][0] for x in path for i in range(x[0].confs.shape[0])], [
-                    x[0].confs[i][1][0] for x in path for i in range(x[0].confs.shape[0])], s=8, c='blue')  # '-r', linewidth=1)
+                    x[0].confs[i][1][0] for x in path for i in range(x[0].confs.shape[0])], s=2, c='blue')  # '-r', linewidth=1)
                 plt.scatter([x[0].confs[-1][0] for x in path], [x[0].confs[-1][1]
-                                                                for x in path], s=3, c='red')
+                                                                for x in path], s=2, c='red')
             else:
                 plt.plot([x[0].x for x in path], [x[0].y
                          for x in path], '-r', linewidth=2)
