@@ -180,13 +180,13 @@ kp = 1.5*kv
 ka = 0.1*kv
 x_bounds = (0, 50)
 y_bounds = (0, 30)
-freq = 100
-prob_gs = 0.2
-n_iters = 1000
+freq = 10
+prob_gs = 0.1
+n_iters = 50
 step = 8
 ######## INITIAL CONDITION ##########
 start = 2, 2  # starting node
-goal = 45, 25  # goal node
+goal = 20, 25  # goal node
 
 tot_time = math.sqrt((start[0]-goal[0])**2 +
                      (start[1]-goal[1])**2)/(max_vel) + 1
