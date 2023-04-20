@@ -180,9 +180,9 @@ kp = 1.5*kv
 ka = 0.1*kv
 x_bounds = (0, 50)
 y_bounds = (0, 30)
-freq = 10
+freq = 100
 prob_gs = 0.2
-n_iters = 500
+n_iters = 1000
 step = 8
 ######## INITIAL CONDITION ##########
 start = 2, 2  # starting node
