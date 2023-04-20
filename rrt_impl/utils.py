@@ -20,6 +20,8 @@ class Utils:
     def __init__(self):
         x_bounds = (0, 50)
         y_bounds = (0, 30)
+        self.x_range = 50
+        self.y_range = 30
         self.env = env.Env(x_bounds, y_bounds)
 
         self.delta = 1
@@ -154,6 +156,15 @@ class Utils:
     def get_dist(start, end):
         return math.hypot(end.x - start.x, end.y - start.y)
 
+class Utils_m:
+
+    def __init__(self, map):
+
+        self.x_range, self.y_range = map.shape
+        self.map = map
+
+    
+
 
 ####### USEFUL VARIABLES #########
 # all the measurements are in meters
@@ -182,11 +193,13 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 50
+n_iters = 500
 step = 8
 ######## INITIAL CONDITION ##########
-start = 2, 2  # starting node
-goal = 20, 25  # goal node
+start = 600, 600  # starting node
+goal = 200, 200  # goal node
+
+obs = False
 
 tot_time = math.sqrt((start[0]-goal[0])**2 +
                      (start[1]-goal[1])**2)/(max_vel) + 1

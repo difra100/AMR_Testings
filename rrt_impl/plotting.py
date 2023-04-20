@@ -9,17 +9,26 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
 
 
 class Plotting:
-    def __init__(self, x_start, x_goal):
+    def __init__(self, x_start, x_goal, map = 'basic'):
         self.xI, self.xG = x_start, x_goal
         x_bounds = (0, 50)
         y_bounds = (0, 30)
-        self.env = env.Env(x_bounds, y_bounds)
-        self.obs_bound = self.env.obs_boundary
-        self.obs_circle = self.env.obs_circle
-        self.obs_rectangle = self.env.obs_rectangle
+        self.map = map
+        if map == 'basic':
+            self.env = env.Env(x_bounds, y_bounds)
+            self.obs_bound = self.env.obs_boundary
+            self.obs_circle = self.env.obs_circle
+            self.obs_rectangle = self.env.obs_rectangle
+        else:
+            self.env = map
 
     def animation(self, nodelist, path, name, animation=False, steer=True, real=False, steer2=False):
-        self.plot_grid(name)
+        
+        if self.map == 'basic':
+            self.plot_grid(name)
+        else:
+            plt.imshow(1-self.map, cmap = 'gray')
+        
         self.plot_visited(nodelist, animation) # Green Lines code
         self.plot_path(path, steer, real, steer2)
 
@@ -130,9 +139,9 @@ class Plotting:
                 return
             elif steer2:
                 plt.scatter([x[0].confs[i][0][0] for x in path for i in range(x[0].confs.shape[0])], [
-                    x[0].confs[i][1][0] for x in path for i in range(x[0].confs.shape[0])], s=2, c='blue')  # '-r', linewidth=1)
+                    x[0].confs[i][1][0] for x in path for i in range(x[0].confs.shape[0])], s=8, c='blue')  # '-r', linewidth=1)
                 plt.scatter([x[0].confs[-1][0] for x in path], [x[0].confs[-1][1]
-                                                                for x in path], s=30, c='red')
+                                                                for x in path], s=3, c='red')
             else:
                 plt.plot([x[0].x for x in path], [x[0].y
                          for x in path], '-r', linewidth=2)
