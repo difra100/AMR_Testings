@@ -9,11 +9,12 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
 
 
 class Plotting:
-    def __init__(self, x_start, x_goal, map = 'basic'):
+    def __init__(self, x_start, x_goal, map = 'basic', res = 1):
         self.xI, self.xG = x_start, x_goal
         x_bounds = (0, 50)
         y_bounds = (0, 30)
         self.map = map
+        self.res = res
         if map == 'basic':
             self.env = env.Env(x_bounds, y_bounds)
             self.obs_bound = self.env.obs_boundary
@@ -76,8 +77,8 @@ class Plotting:
         plt.title(name)
         plt.axis("equal")
 
-    @staticmethod
-    def plot_visited(nodelist, animation):
+    
+    def plot_visited(self, nodelist, animation):
         if animation:
             count = 0
             for node in nodelist:
@@ -93,10 +94,10 @@ class Plotting:
         else:
             for node in nodelist:
                 if node.parent:
-                    plt.scatter([node.confs[i][0][0] for i in range(node.confs.shape[0])], [
-                    node.confs[i][1][0] for i in range(node.confs.shape[0])], s=0.5, c='green')
-                    plt.scatter([node.x], [
-                    node.y], s=1, c='green')
+                    plt.scatter([node.confs[i][0][0]*self.res for i in range(node.confs.shape[0])], [
+                    node.confs[i][1][0]*self.res for i in range(node.confs.shape[0])], s=0., c='green')
+                    plt.scatter([node.x*self.res], [
+                    node.y*self.res], s=1, c='green')
 
     @staticmethod
     def plot_visited_connect(V1, V2):
@@ -120,8 +121,7 @@ class Plotting:
 
         plt.pause(0.01)
 
-    @staticmethod
-    def plot_path(path, steer=True, real=False, steer2=True):
+    def plot_path(self, path, steer=True, real=False, steer2=True):
         if len(path) != 0:
             if not steer and real:
                 conf = path
@@ -138,10 +138,10 @@ class Plotting:
 
                 return
             elif steer2:
-                plt.scatter([x[0].confs[i][0][0] for x in path for i in range(x[0].confs.shape[0])], [
-                    x[0].confs[i][1][0] for x in path for i in range(x[0].confs.shape[0])], s=2, c='blue')  # '-r', linewidth=1)
-                plt.scatter([x[0].confs[-1][0] for x in path], [x[0].confs[-1][1]
-                                                                for x in path], s=2, c='red')
+                plt.scatter([x[0].confs[i][1][0]*self.res for x in path for i in range(x[0].confs.shape[0])], [
+                    x[0].confs[i][0][0]*self.res for x in path for i in range(x[0].confs.shape[0])], s=0.1, c='blue')  # '-r', linewidth=1)
+                plt.scatter([x[0].confs[-1][1]*self.res for x in path], [x[0].confs[-1][0]*self.res
+                                                                for x in path], s=1, c='red')
             else:
                 plt.plot([x[0].x for x in path], [x[0].y
                          for x in path], '-r', linewidth=2)

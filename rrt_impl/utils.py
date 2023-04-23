@@ -158,12 +158,13 @@ class Utils:
 
 class Utils_m:
 
-    def __init__(self, map, length, tol):
+    def __init__(self, map, length, tol, res = 1):
 
         self.x_range, self.y_range = map.shape
         self.map = map
         self.length = length
         self.tol = tol
+        self.res = res
 
         self.x_obs = np.where(self.map != 0)[0]
         self.y_obs = np.where(self.map != 0)[1]
@@ -179,9 +180,14 @@ class Utils_m:
         x_bounds = (x-length-tol, x+length+tol)
         y_bounds = (y-length-tol, y+length+tol)
 
+
+
         for obs_idx in range(self.x_obs.shape[0]):
-            if self.x_obs[obs_idx] <= x_bounds[-1] and self.x_obs[obs_idx] >= x_bounds[0] and \
-                self.y_obs[obs_idx] <= y_bounds[-1] and self.y_obs[obs_idx] >= y_bounds[0]:
+   
+            if x_bounds[0]*self.res <= self.x_obs[obs_idx] <= x_bounds[-1]*self.res and \
+               y_bounds[0]*self.res <= self.y_obs[obs_idx] <= y_bounds[-1]*self.res:
+                # print('ciao')
+            # if math.hypot(self.x_obs[obs_idx] - x*res, self.y_obs[obs_idx] - y*res) <= length + tol:
                 return True
             
         return False
@@ -211,7 +217,7 @@ tau_max = 250  # Nm
 cmd_bd = 12
 
 length = 0.5
-tol = 0.4
+tol = 0.7
 
 t = 0.63/2  # width of the robot
 kv = 1#65
@@ -221,13 +227,14 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 100
-step = 8
+n_iters = 30
+step = 5
+res = 10
 ######## INITIAL CONDITION ##########
-start = 100, 100  # starting node
-goal = 400, 400  # goal node
+start = 0, 0  # starting node
+goal = 40, 40  # goal node
 
-obs = False
+obs = True
 
 tot_time = math.sqrt((start[0]-goal[0])**2 +
                      (start[1]-goal[1])**2)/(max_vel) + 1
