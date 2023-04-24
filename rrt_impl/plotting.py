@@ -23,15 +23,15 @@ class Plotting:
         else:
             self.env = map
 
-    def animation(self, nodelist, path, name, animation=False, steer=True, real=False, steer2=False):
+    def animation(self, nodelist, path, name, animation=False, steer=True):
         
         if self.map == 'basic':
             self.plot_grid(name)
         else:
-            plt.imshow(1-self.map, cmap = 'gray')
+            plt.imshow(self.map, cmap = 'gray')
         
         self.plot_visited(nodelist, animation) # Green Lines code
-        self.plot_path(path, steer, real, steer2)
+        self.plot_path(path, steer)
 
     def animation_connect(self, V1, V2, path, name):
         self.plot_grid(name)
@@ -92,10 +92,15 @@ class Plotting:
                     if count % 10 == 0:
                         plt.pause(0.001)
         else:
+            x_idx = 0
+            y_idx = 1
+            if self.map != 'basic':
+                    x_idx = 1
+                    y_idx = 0
             for node in nodelist:
                 if node.parent:
-                    plt.scatter([node.confs[i][0][0]*self.res for i in range(node.confs.shape[0])], [
-                    node.confs[i][1][0]*self.res for i in range(node.confs.shape[0])], s=0., c='green')
+                    plt.scatter([node.confs[i][x_idx][0]*self.res for i in range(node.confs.shape[0])], [
+                    node.confs[i][y_idx][0]*self.res for i in range(node.confs.shape[0])], s=1., c='green')
                     plt.scatter([node.x*self.res], [
                     node.y*self.res], s=1, c='green')
 
@@ -121,26 +126,18 @@ class Plotting:
 
         plt.pause(0.01)
 
-    def plot_path(self, path, steer=True, real=False, steer2=True):
+    def plot_path(self, path, steer=True):
         if len(path) != 0:
-            if not steer and real:
-                conf = path
-                plt.plot([x[0] for x in conf], [
-                         x[1] for x in conf], '-b', linewidth=2)
-                return
+            
+            
             if steer:
-                plt.scatter([x[0].conf[i][0] for x in path for i in range(len(x[0].conf))], [
-                    x[0].conf[i][1] for x in path for i in range(len(x[0].conf))], s=2, c='blue')  # '-r', linewidth=1)
-                conf = path
-                plt.scatter([x[0].conf[-1][0] for x in conf], [
-                    x[0].conf[-1][1] for x in conf], s=30, c='red')
-                # plt.plot([k[0].conf[i][0]  for k in path for i in range(len(k[0].conf))], [k[0].conf[i][1]  for k in path for i in range(len(k[0].conf))], '-r', linewidth=2)
+                if self.map != 'basic':
+                    x_idx = 1
+                    y_idx = 0
 
-                return
-            elif steer2:
-                plt.scatter([x[0].confs[i][1][0]*self.res for x in path for i in range(x[0].confs.shape[0])], [
-                    x[0].confs[i][0][0]*self.res for x in path for i in range(x[0].confs.shape[0])], s=0.1, c='blue')  # '-r', linewidth=1)
-                plt.scatter([x[0].confs[-1][1]*self.res for x in path], [x[0].confs[-1][0]*self.res
+                plt.scatter([x[0].confs[i][x_idx][0]*self.res for x in path for i in range(x[0].confs.shape[0])], [
+                    x[0].confs[i][0][y_idx]*self.res for x in path for i in range(x[0].confs.shape[0])], s=0.1, c='blue')  # '-r', linewidth=1)
+                plt.scatter([x[0].confs[-1][x_idx]*self.res for x in path], [x[0].confs[-1][y_idx]*self.res
                                                                 for x in path], s=1, c='red')
             else:
                 plt.plot([x[0].x for x in path], [x[0].y
@@ -149,3 +146,4 @@ class Plotting:
             plt.pause(0.01)
             return
         plt.show()
+

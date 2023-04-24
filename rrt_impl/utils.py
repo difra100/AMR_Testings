@@ -169,6 +169,8 @@ class Utils_m:
         self.x_obs = np.where(self.map != 0)[0]
         self.y_obs = np.where(self.map != 0)[1]
 
+        
+
 
 
     def is_inside_obs_alternative(self, state):
@@ -188,9 +190,40 @@ class Utils_m:
                y_bounds[0]*self.res <= self.y_obs[obs_idx] <= y_bounds[-1]*self.res:
                 # print('ciao')
             # if math.hypot(self.x_obs[obs_idx] - x*res, self.y_obs[obs_idx] - y*res) <= length + tol:
+            # dist = np.linalg.norm(np.array([self.x_obs[obs_idx], self.y_obs[obs_idx]])- \
+            #                       np.array([x*res, y*res]))    
+            # if dist <= length + tol:
+                
                 return True
             
         return False
+    
+    def is_transition_feasible(self, state1, state2):
+
+        x1, y1 = state1
+        x2, y2 = state2
+        
+        z1 = self.map[int(x1*self.res), int(y1*self.res)]
+        z2 = self.map[int(x2*self.res), int(y2*self.res)]
+    
+        plan_dist = math.hypot((x2-x1)*self.res, (y2-y1)*self.res)
+
+        increm = abs(z2-z1)
+
+     
+
+
+        angle = math.atan2(increm, plan_dist)
+       
+        if angle > 0.7854: # Maximum slope of 45 degrees
+            return True, 0
+        
+        return False, math.hypot(increm, plan_dist)
+
+
+
+
+
 
 
     
@@ -227,12 +260,12 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 30
-step = 5
-res = 10
+n_iters = 150
+step = 30
+res = 2
 ######## INITIAL CONDITION ##########
-start = 0, 0  # starting node
-goal = 40, 40  # goal node
+start = 257, 257  # starting node
+goal = 200, 100  # goal node
 
 obs = True
 
