@@ -250,7 +250,7 @@ tau_max = 250  # Nm
 cmd_bd = 12
 
 length = 0.5
-tol = 0.7
+tol = 0.1
 
 t = 0.63/2  # width of the robot
 kv = 1#65
@@ -260,14 +260,18 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 40
-step = 8
-res = 1
+n_iters = 150
+
+res = 10
+step = 2
+
 ######## INITIAL CONDITION ##########
-start = 0, 0  # starting node
-goal =200, 250  # goal node
+start = 10, 10  # starting node
+goal =20, 25  # goal node
 
 obs = True
+elevation = False
+
 
 tot_time = math.sqrt((start[0]-goal[0])**2 +
                      (start[1]-goal[1])**2)/(max_vel) + 1
