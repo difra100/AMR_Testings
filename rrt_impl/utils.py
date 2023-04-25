@@ -260,12 +260,12 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 150
-step = 30
-res = 2
+n_iters = 40
+step = 8
+res = 1
 ######## INITIAL CONDITION ##########
-start = 257, 257  # starting node
-goal = 200, 100  # goal node
+start = 0, 0  # starting node
+goal =200, 250  # goal node
 
 obs = True
 
