@@ -28,7 +28,7 @@ class Plotting:
         if self.map == 'basic':
             self.plot_grid(name)
         else:
-            plt.imshow(self.map, cmap = 'gray')
+            plt.imshow(1-self.map, cmap = 'gray')
         
         self.plot_visited(nodelist, animation) # Green Lines code
         self.plot_path(path, steer)
@@ -101,8 +101,8 @@ class Plotting:
                 if node.parent:
                     plt.scatter([node.confs[i][x_idx][0]*self.res for i in range(node.confs.shape[0])], [
                     node.confs[i][y_idx][0]*self.res for i in range(node.confs.shape[0])], s=1., c='green')
-                    plt.scatter([node.x*self.res], [
-                    node.y*self.res], s=1, c='green')
+                    # plt.scatter([node.x*self.res], [
+                    # node.y*self.res], s=1, c='green')
 
     @staticmethod
     def plot_visited_connect(V1, V2):
