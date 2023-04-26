@@ -260,10 +260,10 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 150
+n_iters = 30
 
 res = 10
-step = 2
+step = 4
 
 ######## INITIAL CONDITION ##########
 start = 10, 10  # starting node
