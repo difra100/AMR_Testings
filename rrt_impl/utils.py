@@ -189,12 +189,14 @@ class Utils_m:
             if x_bounds[0]*self.res <= self.x_obs[obs_idx] <= x_bounds[-1]*self.res and \
                y_bounds[0]*self.res <= self.y_obs[obs_idx] <= y_bounds[-1]*self.res:
                 # print('ciao')
+                return True
+            
+            if not int(x) in range(0, self.x_range) or not int(y) in range(0, self.y_range):
+                return True
             # if math.hypot(self.x_obs[obs_idx] - x*res, self.y_obs[obs_idx] - y*res) <= length + tol:
             # dist = np.linalg.norm(np.array([self.x_obs[obs_idx], self.y_obs[obs_idx]])- \
             #                       np.array([x*res, y*res]))    
             # if dist <= length + tol:
-                
-                return True
             
         return False
     
@@ -250,7 +252,7 @@ tau_max = 250  # Nm
 cmd_bd = 12
 
 length = 0.5
-tol = 0.1
+tol = 0.2
 
 t = 0.63/2  # width of the robot
 kv = 1#65
@@ -260,7 +262,7 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 100
+n_iters = 300
 
 res = 10
 step = 4
