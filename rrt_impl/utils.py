@@ -170,9 +170,6 @@ class Utils_m:
         self.y_obs = np.where(self.map != 0)[1]
 
         
-
-
-
     def is_inside_obs_alternative(self, state):
 
         x, y = state
@@ -181,8 +178,6 @@ class Utils_m:
 
         x_bounds = (x-length-tol, x+length+tol)
         y_bounds = (y-length-tol, y+length+tol)
-
-
 
         for obs_idx in range(self.x_obs.shape[0]):
    
@@ -222,17 +217,6 @@ class Utils_m:
         
         return False, math.hypot(increm, plan_dist)
 
-
-
-
-
-
-
-    
-
-    
-
-
 ####### USEFUL VARIABLES #########
 # all the measurements are in meters
 mass = 116  # mass of the robot
@@ -262,7 +246,7 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 300
+n_iters = 50
 
 res = 10
 step = 4
