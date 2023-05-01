@@ -3,6 +3,7 @@ import math
 import numpy as np
 import os
 import sys
+import cv2
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
                 "/../../Sampling_based_Planning/")
@@ -158,64 +159,158 @@ class Utils:
 
 class Utils_m:
 
-    def __init__(self, map, length, tol, res = 1):
+    def __init__(self, map, length, tol, pitch_b, roll_b, res = 1):
 
         self.x_range, self.y_range = map.shape
         self.map = map
         self.length = length
         self.tol = tol
         self.res = res
+        self.pitch_b = pitch_b
+        self.roll_b = roll_b
 
         self.x_obs = np.where(self.map != 0)[0]
         self.y_obs = np.where(self.map != 0)[1]
 
         
-    def is_inside_obs_alternative(self, state):
+    def is_inside_obs_alternative(self, state, vels):
 
         x, y = state
+        xd, yd = vels
+
+        if abs(xd) > max_vel or abs(yd) > max_skid:
+        #     print('velocity x not in range: ', xd)
+
+        #     print('velocity y not in range: ', yd)
+            return True
+        if not int(x*self.res) in range(0, self.x_range) or not int(y*self.res) in range(0, self.y_range):
+
+
+            return True
+
+
+
         length = self.length
         tol = self.tol
 
         x_bounds = (x-length-tol, x+length+tol)
         y_bounds = (y-length-tol, y+length+tol)
 
+
+
         for obs_idx in range(self.x_obs.shape[0]):
    
             if x_bounds[0]*self.res <= self.x_obs[obs_idx] <= x_bounds[-1]*self.res and \
                y_bounds[0]*self.res <= self.y_obs[obs_idx] <= y_bounds[-1]*self.res:
                 # print('ciao')
-                return True
-            
-            if not int(x) in range(0, self.x_range) or not int(y) in range(0, self.y_range):
-                return True
             # if math.hypot(self.x_obs[obs_idx] - x*res, self.y_obs[obs_idx] - y*res) <= length + tol:
             # dist = np.linalg.norm(np.array([self.x_obs[obs_idx], self.y_obs[obs_idx]])- \
             #                       np.array([x*res, y*res]))    
             # if dist <= length + tol:
+                
+                return True
             
         return False
     
-    def is_transition_feasible(self, state1, state2):
+    def is_transition_feasible(self, prev_state, state, vels):
 
-        x1, y1 = state1
-        x2, y2 = state2
+        x, y = state
         
-        z1 = self.map[int(x1*self.res), int(y1*self.res)]
-        z2 = self.map[int(x2*self.res), int(y2*self.res)]
-    
-        plan_dist = math.hypot((x2-x1)*self.res, (y2-y1)*self.res)
+        x_old, y_old = prev_state
 
-        increm = abs(z2-z1)
+        tol = 3
+        # if abs(xd) > max_vel:
+        #     print('velocity x not in range: ', xd)
 
-     
+        #     print('velocity y not in range: ', yd)
+        #     return True, 0
+        
+        if not int(x*res) in range(0, self.x_range) or not int(y*res) in range(0, self.y_range):
 
-
-        angle = math.atan2(increm, plan_dist)
-       
-        if angle > 0.7854: # Maximum slope of 45 degrees
             return True, 0
+
         
-        return False, math.hypot(increm, plan_dist)
+
+        z = self.map[int(x*res), int(y*res)]
+                            
+        points = [[1, x, y]]   # -cz = ax + by + d (c = -1) ; [0 = ax + by +cz + d]
+        output = [[z]]
+        # print('original z is: ', z)
+        options = [(1, 1), (1, -1), (-1, -1), (-1, +1), (1, 0), (0, 1)] # Square edges
+        # print("ELEVATION COMPUTATIONS: ")
+        # print('original z is: ', z)
+
+        for opt in options:
+                x_new = tol*opt[0] + x
+                y_new = tol*opt[1] + y
+                # print(int(x_new*res), self.x_range)
+                # print(int(y_new*res), self.y_range)
+                if int(x_new*res) not in range(0, self.x_range) or int(y_new*res) not in range(0, self.y_range):
+                    continue
+                # print("point {} becomes {}".format(x, x_new))
+                # print("res is: ", res)
+                # print("map coords. ", int(x_new), int(y_new))
+                z_new = self.map[int(x_new*res), int(y_new*res)]
+                
+                points.append([1, x_new, y_new])
+                output.append([z_new])
+        # print("END")
+        
+        X = np.array(points)
+        out = np.array(output)
+
+        # LEAST SQUARES METHOD
+        w = np.linalg.pinv(X) @ out
+
+        n = np.array([w[1][0], w[2][0], -1])        
+        norm = np.linalg.norm(n)
+        
+        w_n = n/norm # Cosine directors.
+        # print("NORMALE", w_n)
+        nx = w_n[0]
+        ny = w_n[1]
+        nz = -w_n[2]
+
+        
+        yaw = math.atan2(ny,nx)
+        pitch = math.atan2(nx,nz)
+        roll = math.atan2(nz,ny)
+
+        #   print("Yaw angle (theta_z): degrees", np.degrees(yaw))
+        # print("Pitch angle (theta_y): degrees", np.degrees(pitch))
+        # print("Roll angle (theta_x): degrees", np.degrees(roll))
+
+        pitch_bound = self.pitch_b
+        roll_bound = self.roll_b 
+
+        if pitch_bound <= pitch <= 2*math.pi - pitch_bound:
+                return True, 0
+
+        if roll <= - roll_bound + math.pi/2 or roll >= roll_bound + math.pi/2:
+                return True, 0
+
+        return False, math.hypot(z - self.map[int(x_old*res), int(y_old*res)], math.hypot(x-x_old, y-y_old))
+        
+def get_new_map(map, map_name):
+    d = {'many_obstacles': (400, 300),
+         'few_obstacles':  (200, 120),
+         'empty': (150, 150),
+         'apollo15_landing_site': 514}
+    vals = d[map_name]
+
+    if map_name == 'apollo15_landing_site':
+        map = cv2.rotate(map[:vals, :], cv2.ROTATE_180) 
+        return map
+
+    if map_name == 'empty':
+        map[100, 100] = 0.1
+
+    map = map[:vals[0], :vals[0]]
+    map = cv2.rotate(map, cv2.ROTATE_180)
+    map = map[:vals[-1], :vals[-1]]
+    
+    # plt.imshow(1-map, cmap = 'gray')
+    return map
 
 ####### USEFUL VARIABLES #########
 # all the measurements are in meters
@@ -232,11 +327,15 @@ r = 0.2  # wheel radius
 
 ## BOUNDS ##
 max_vel = 2  # max achievable velocity
+max_skid = 0.1
 tau_max = 250  # Nm
 cmd_bd = 12
 
 length = 0.5
 tol = 0.2
+
+pitch_bound = 3*math.pi/180
+roll_bound = 3*math.pi/180
 
 t = 0.63/2  # width of the robot
 kv = 1#65
@@ -246,17 +345,25 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 50
+n_iters = 500
 
-res = 10
-step = 4
+map_title = 'apollo15_landing_site.npy'
+
+if map_title != 'apollo15_landing_site.npy': # ROS: 150-213, -4.3420014 // PYTHON: 150-470
+    res = 10
+else:
+    res = 2
+
+step = 10
+
+
 
 ######## INITIAL CONDITION ##########
-start = 0, 0  # starting node
-goal =20, 25  # goal node
+start = 0, 400  # starting node
+goal =200, 100  # goal node
 
 obs = True
-elevation = False
+elevation = True
 
 
 tot_time = math.sqrt((start[0]-goal[0])**2 +
