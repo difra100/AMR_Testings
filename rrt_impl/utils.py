@@ -219,11 +219,11 @@ class Utils_m:
         x_old, y_old = prev_state
 
         tol = 2
-        # if abs(xd) > max_vel:
-        #     print('velocity x not in range: ', xd)
+        if abs(xd) > max_vel: #or abs(yd) > max_skid:
+            print('velocity x not in range: ', xd)
 
-        #     print('velocity y not in range: ', yd)
-        #     return True, 0
+            print('velocity y not in range: ', yd)
+            return True, 0
         
         if not int(x*res) in range(0, self.x_range) or not int(y*res) in range(0, self.y_range):
 
@@ -345,7 +345,7 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 50
+n_iters = 1000
 
 map_title = 'apollo15_landing_site.npy'
 
