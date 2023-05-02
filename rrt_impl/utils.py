@@ -218,7 +218,7 @@ class Utils_m:
         
         x_old, y_old = prev_state
 
-        tol = 3
+        tol = 2
         # if abs(xd) > max_vel:
         #     print('velocity x not in range: ', xd)
 
@@ -326,7 +326,7 @@ r = 0.2  # wheel radius
 
 
 ## BOUNDS ##
-max_vel = 2  # max achievable velocity
+max_vel = 1  # max achievable velocity
 max_skid = 0.1
 tau_max = 250  # Nm
 cmd_bd = 12
@@ -334,8 +334,8 @@ cmd_bd = 12
 length = 0.5
 tol = 0.2
 
-pitch_bound = 3*math.pi/180
-roll_bound = 3*math.pi/180
+pitch_bound = 2*math.pi/180
+roll_bound = 2*math.pi/180
 
 t = 0.63/2  # width of the robot
 kv = 1#65
@@ -345,7 +345,7 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 500
+n_iters = 50
 
 map_title = 'apollo15_landing_site.npy'
 
@@ -359,7 +359,7 @@ step = 10
 
 
 ######## INITIAL CONDITION ##########
-start = 0, 400  # starting node
+start = 50, 500  # starting node
 goal =200, 100  # goal node
 
 obs = True
