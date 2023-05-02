@@ -181,11 +181,11 @@ class Utils_m:
         xd, yd = vels
         samp_x, samp_y = int(round(x*res)), int(round(y*res))
         
-
         if abs(xd) > max_vel or abs(yd) > max_skid:
             return True
     
         if not samp_x in range(0, self.x_range) or not samp_y in range(0, self.y_range):
+
             return True
 
         length = self.length
@@ -200,7 +200,7 @@ class Utils_m:
    
             if x_bounds[0]*res <= self.x_obs[obs_idx] <= x_bounds[-1]*res and \
                y_bounds[0]*res <= self.y_obs[obs_idx] <= y_bounds[-1]*res:
-                
+    
                 return True
             
         return False
@@ -361,7 +361,7 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 150
+n_iters = 500
 
 
 
@@ -369,12 +369,12 @@ n_iters = 150
 jerk = False
 elevation = False
 
-map_title = 'many_obstacles.npy'
+map_title = 'empty.npy'
 trav_map = None
 
 if map_title != 'apollo15_landing_site.npy': # ROS: 150-213, -4.3420014 // PYTHON: 150-470
     res = 10
-    step = 100 # we do not consider the step
+    step = 200 # we do not consider the step
 else:
     res = 2
     elevation = True
@@ -388,9 +388,9 @@ else:
 
 ######## INITIAL CONDITION ##########
 start = 0, 0  # starting node
-goal =20, 25  # goal node
+goal =10, 10  # goal node
 
-obs = True
+obs = False
 
 
 
