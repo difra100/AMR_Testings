@@ -310,7 +310,7 @@ def trav_map(old_map, dist, pitch_toll, roll_toll):
 def get_new_map(map, map_name):
     d = {'many_obstacles': (400, 300),
          'few_obstacles':  (200, 120),
-         'empty': (150, 150),
+         'empty': (120, 120),
          'apollo15_landing_site': 514}
     vals = d[map_name]
 
@@ -319,7 +319,7 @@ def get_new_map(map, map_name):
         return map
 
     if map_name == 'empty':
-        map[100, 100] = 0.1
+        map[0, 0] = 1
 
     map = map[:vals[0], :vals[0]]
     map = cv2.rotate(map, cv2.ROTATE_180)
@@ -388,9 +388,9 @@ else:
 
 ######## INITIAL CONDITION ##########
 start = 0, 0  # starting node
-goal =10, 10  # goal node
+goal =6, 6  # goal node
 
-obs = False
+obs = True
 
 
 

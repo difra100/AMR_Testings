@@ -26,7 +26,7 @@ class Plotting:
     def animation(self, nodelist, path, name, animation=False, steer=True):
         
         self.plot_grid(name)
-        extent = [0, self.env.shape[0]/self.res, self.env.shape[1]/self.res, 0] # Get correct resolution of the image
+        extent = [0, self.env.shape[1]/self.res, self.env.shape[0]/self.res, 0] # Get correct resolution of the image
         plt.imshow(1-self.env, cmap = 'gray', extent = extent)
         
         self.plot_visited(nodelist, animation) # Green Lines code
