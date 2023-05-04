@@ -185,7 +185,7 @@ class Utils_m:
             return True
     
         if not samp_x in range(0, self.x_range) or not samp_y in range(0, self.y_range):
-
+            
             return True
 
         length = self.length
@@ -373,20 +373,20 @@ n_iters = 500
 
 
 
-jerk = False
+jerk = True
 elevation = False
 
-map_title = 'apollo15_landing_site.npy'
+map_title = 'empty.npy'
 trav_map = None
 
 if map_title != 'apollo15_landing_site.npy': # ROS: 150-213, -4.3420014 // PYTHON: 150-470
     res = 10
-    step = 200 # we do not consider the step
+    step = 2 # we do not consider the step
 else:
     res = 2
     elevation = True
     trav_map = np.load('numpy_maps/apollo15_traversability_map.npy')
-    step = 10
+    step = 200
 
 
 
@@ -394,8 +394,8 @@ else:
 
 
 ######## INITIAL CONDITION ##########
-start = 50, 500  # starting node
-goal = 100, 50  # goal node   # few obs acc: [ 9.33165481, 10.39625605] 
+start = 0, 0  # starting node    # apollo15: START (50, 500) --> (100, 50)
+goal = 6.02886820e+00, 5.23073170e+00  # goal node   # few obs acc: [ 9.33165481, 10.39625605] 
 
 obs = True
 
