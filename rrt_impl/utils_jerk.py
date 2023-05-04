@@ -243,7 +243,7 @@ x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
 prob_gs = 0.1
-n_iters = 50
+n_iters = 60
 
 res = 10
 step = 4
