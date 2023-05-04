@@ -210,26 +210,33 @@ class Utils_m:
         x, y = state
         x_old, y_old = prev_state
         xd, yd = vels
+        # print("prev: ", x, y)
+        # print("res: ", x*res, y*res)
+        # print("round: ", round(x*res), round(y*res))
+
+
 
         samp_x, samp_y = int(round(x*res)), int(round(y*res))
         samp_x_old, samp_y_old = int(round(x_old*res)), int(round(y_old*res))
         
-        if not samp_x in range(0, self.x_range) or not samp_y in range(0, self.y_range):
+        if not samp_x in range(0, self.x_range) or not samp_y in range(0, self.y_range) or not samp_x_old in range(0, self.x_range) or not samp_y_old in range(0, self.y_range):
             return True, 0
 
         z = self.map[samp_x, samp_y]
         z_old = self.map[samp_x_old, samp_y_old]
 
 
-        if abs(xd) > max_vel: #or abs(yd) > max_skid:
+        if abs(xd) > max_vel or abs(yd) > max_skid:
             print('velocity x not in range: ', xd)
 
             print('velocity y not in range: ', yd)
             return True, 0
         
         
-       
+        # print(samp_x, samp_y)
         if self.trav_map[samp_x, samp_y]:
+            # print("obs: ", samp_x, samp_y)
+
             return True, 0
         
         return False, math.hypot(z-z_old, math.hypot(x-x_old, y-y_old))
@@ -369,7 +376,7 @@ n_iters = 500
 jerk = False
 elevation = False
 
-map_title = 'empty.npy'
+map_title = 'apollo15_landing_site.npy'
 trav_map = None
 
 if map_title != 'apollo15_landing_site.npy': # ROS: 150-213, -4.3420014 // PYTHON: 150-470
@@ -387,8 +394,8 @@ else:
 
 
 ######## INITIAL CONDITION ##########
-start = 0, 0  # starting node
-goal =6, 6  # goal node
+start = 50, 500  # starting node
+goal = 100, 50  # goal node   # few obs acc: [ 9.33165481, 10.39625605] 
 
 obs = True
 

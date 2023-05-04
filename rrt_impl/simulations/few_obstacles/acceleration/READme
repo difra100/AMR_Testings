@@ -1,5 +1,4 @@
-# time of trajectory: 126.0 sec.
-# cost: 630.0076
-# expanded nodes: 637
-# time: 5400 sec
-# n iteration: 3000
+EXPANDED NODES: 747
+total time of trajectory: 81.0 sec
+cost: 304.5143
+computational time: 5616 sec

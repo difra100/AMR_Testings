@@ -9,11 +9,12 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) +
 
 
 class Plotting:
-    def __init__(self, x_start, x_goal, map = 'basic', res = 1):
+    def __init__(self, x_start, x_goal, map = 'basic', el_map = None, res = 1):
         self.xI, self.xG = x_start, x_goal
         x_bounds = (0, 50)
         y_bounds = (0, 30)
         self.map = map
+        self.el_map = el_map
         self.res = res
         if map == 'basic':
             self.env = env.Env(x_bounds, y_bounds)
@@ -23,14 +24,27 @@ class Plotting:
         else:
             self.env = map
 
-    def animation(self, nodelist, path, name, animation=False, steer=True):
+    def animation(self, nodelist, path, name, animation=False, steer=True, elevation = False):
         
-        self.plot_grid(name)
+        
         extent = [0, self.env.shape[1]/self.res, self.env.shape[0]/self.res, 0] # Get correct resolution of the image
-        plt.imshow(1-self.env, cmap = 'gray', extent = extent)
         
-        self.plot_visited(nodelist, animation) # Green Lines code
-        self.plot_path(path, steer)
+        if elevation:
+            self.plot_grid(name)
+            plt.imshow(self.env, cmap = 'gray', extent = extent)
+            self.plot_visited(nodelist, animation) # Green Lines code
+            self.plot_path(path, steer)
+
+            self.plot_grid(name)
+            plt.imshow(1-self.el_map, cmap = 'gray', extent = extent)
+            self.plot_visited(nodelist, animation) # Green Lines code
+            self.plot_path(path, steer)
+        else:
+            self.plot_grid(name)
+            plt.imshow(1-self.env, cmap = 'gray', extent = extent)
+            self.plot_visited(nodelist, animation) # Green Lines code
+            self.plot_path(path, steer)
+        
 
     def animation_connect(self, V1, V2, path, name):
         self.plot_grid(name)
@@ -136,7 +150,7 @@ class Plotting:
                     y_idx = 0
 
                 plt.scatter([x[0].confs[i][x_idx][0] for x in path for i in range(x[0].confs.shape[0])], [
-                    x[0].confs[i][0][y_idx] for x in path for i in range(x[0].confs.shape[0])], s=0.1, c='blue')  # '-r', linewidth=1)
+                    x[0].confs[i][0][y_idx] for x in path for i in range(x[0].confs.shape[0])], s=0.05, c='blue')  # '-r', linewidth=1)
                 plt.scatter([x[0].confs[-1][x_idx] for x in path], [x[0].confs[-1][y_idx]
                                                                 for x in path], s=1, c='red', marker = 's')
             else:
