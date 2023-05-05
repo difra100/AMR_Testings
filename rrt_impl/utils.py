@@ -180,12 +180,11 @@ class Utils_m:
         x, y = state
         xd, yd = vels
         samp_x, samp_y = int(round(x*res)), int(round(y*res))
-        
-        if abs(xd) > max_vel or abs(yd) > max_skid:
-            return True
-    
-        if not samp_x in range(0, self.x_range) or not samp_y in range(0, self.y_range):
+        if abs(xd) > max_vel or abs(yd) > max_skid or abs(xd) < 0.01:
             
+            return True
+        
+        if not samp_x in range(0, self.x_range) or not samp_y in range(0, self.y_range):
             return True
 
         length = self.length
@@ -200,7 +199,12 @@ class Utils_m:
    
             if x_bounds[0]*res <= self.x_obs[obs_idx] <= x_bounds[-1]*res and \
                y_bounds[0]*res <= self.y_obs[obs_idx] <= y_bounds[-1]*res:
-    
+                # print('OBSTACLE: ', self.x_obs[obs_idx], self.y_obs[obs_idx])
+                # print('Bounds:', (x_bounds[0], x_bounds[1]),(y_bounds[0], y_bounds[1]))
+
+
+
+
                 return True
             
         return False
@@ -367,7 +371,7 @@ ka = 0.1*kv
 x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
-prob_gs = 1
+prob_gs = 0.1
 n_iters = 500
 
 
@@ -376,17 +380,17 @@ n_iters = 500
 jerk = True
 elevation = False
 
-map_title = 'empty.npy'
+map_title = 'few_obstacles.npy'
 trav_map = None
 
 if map_title != 'apollo15_landing_site.npy': # ROS: 150-213, -4.3420014 // PYTHON: 150-470
     res = 10
-    step = 300 # we do not consider the step
+    step = 2 # we do not consider the step
 else:
     res = 2
     elevation = True
     trav_map = np.load('numpy_maps/apollo15_traversability_map.npy')
-    step = 2
+    step = 10
 
 
 
