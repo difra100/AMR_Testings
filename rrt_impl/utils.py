@@ -395,7 +395,7 @@ else:
 
 ######## INITIAL CONDITION ##########
 start = 0, 0  # starting node    # apollo15: START (50, 500) --> (100, 50)
-goal = 6.02886820e+00, 5.23073170e+00  # goal node   # few obs acc: [ 9.33165481, 10.39625605] 
+goal = 6,   # goal node   # few obs acc: [ 9.33165481, 10.39625605] 
 
 obs = True
 
