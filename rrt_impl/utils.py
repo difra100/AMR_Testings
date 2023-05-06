@@ -383,7 +383,7 @@ n_iters = 500
 jerk = True
 elevation = False
 
-map_title = 'apollo15_landing_site.npy'
+map_title = 'many_obstacles.npy'
 trav_map = None
 
 if map_title != 'apollo15_landing_site.npy': # ROS: 150-213, -4.3420014 // PYTHON: 150-470
@@ -394,15 +394,19 @@ else:
     elevation = True
     trav_map = np.load('numpy_maps/apollo15_traversability_map.npy')
     step = 10
-
-
-
-
-
+    start = 50, 500  # apollo15: START (50, 500) --> (100, 50)
+    goal = 100, 50
 
 ######## INITIAL CONDITION ##########
-start = 50, 500  # starting node    # apollo15: START (50, 500) --> (100, 50)
-goal = 100, 50 # goal node   # few obs acc: [ 9.33165481, 10.39625605] 
+if map_title == 'empty.npy':
+    start = 0,0
+    goal = 10, 10
+if map_title == 'few_obstacles.npy':
+    start = 0,0  
+    goal = 10, 10
+if map_title == 'many_obstacles.npy':
+    start = 0,0  
+    goal = 30, 30
 
 obs = True
 
