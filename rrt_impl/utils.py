@@ -383,7 +383,7 @@ n_iters = 500
 jerk = True
 elevation = False
 
-map_title = 'many_obstacles.npy'
+map_title = 'empty.npy'
 trav_map = None
 
 if map_title != 'apollo15_landing_site.npy': # ROS: 150-213, -4.3420014 // PYTHON: 150-470
@@ -401,6 +401,7 @@ else:
 if map_title == 'empty.npy':
     start = 0,0
     goal = 10, 10
+    prob_gs = 1
 if map_title == 'few_obstacles.npy':
     start = 0,0  
     goal = 10, 10
