@@ -374,7 +374,7 @@ ka = 0.1*kv
 x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
-prob_gs = 0.1
+prob_gs = 1
 n_iters = 500
 
 
@@ -383,7 +383,7 @@ n_iters = 500
 jerk = True
 elevation = False
 
-map_title = 'empty.npy'
+map_title = 'many_obstacles.npy'
 trav_map = None
 
 if map_title != 'apollo15_landing_site.npy': # ROS: 150-213, -4.3420014 // PYTHON: 150-470
@@ -407,7 +407,7 @@ if map_title == 'few_obstacles.npy':
     goal = 10, 10
 if map_title == 'many_obstacles.npy':
     start = 0,0  
-    goal = 30, 30
+    goal = 28.38, 28.33
 
 obs = True
 
