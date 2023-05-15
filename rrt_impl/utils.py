@@ -368,8 +368,6 @@ cmd_bd = 12
 length = 0.5
 tol = 0.2
 
-pitch_bound = 2*math.pi/180
-roll_bound = 2*math.pi/180
 
 t = 0.63/2  # width of the robot
 kv = 1#65

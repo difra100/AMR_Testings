@@ -34,7 +34,7 @@ class Plotting:
         if elevation:
             self.plot_grid(name)
             plt.imshow(self.env, cmap = 'gray', extent = extent)
-            self.plot_visited(nodelist, animation) # Green Lines code
+            self.plot_visited(nodelist, animation, steer) # Green Lines code
             self.plot_path(path, steer)
 
             self.plot_grid(name)
