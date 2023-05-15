@@ -380,12 +380,14 @@ prob_gs = 0.1
 n_iters = 2000
 
 
+pitch_bound = 2*math.pi/180
+roll_bound = 2*math.pi/180
 
 
 jerk = True
 elevation = False
 
-map_title = 'few_obstacles.npy'
+map_title = 'many_obstacles.npy'
 trav_map = None
 
 if map_title != 'apollo15_landing_site.npy': # ROS: 150-213, -4.3420014 // PYTHON: 150-470
