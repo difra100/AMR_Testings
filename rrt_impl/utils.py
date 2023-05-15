@@ -128,8 +128,16 @@ class Utils:
 
         return False
 
-    def is_inside_obs_alternative(self, coords):
+    def is_inside_obs_alternative(self, coords, vels):
         delta = self.delta
+
+        x, y = coords
+        xd, yd = vels
+        samp_x, samp_y = int(round(x*res)), int(round(y*res))
+        
+        if not samp_x in range(0, self.x_range) or not samp_y in range(0, self.y_range):
+            
+            return True
 
         for (x, y, r) in self.obs_circle:
             if math.hypot(coords[0] - x, coords[1] - y) <= r + delta:
@@ -204,10 +212,6 @@ class Utils_m:
                y_bounds[0]*res <= self.y_obs[obs_idx] <= y_bounds[-1]*res:
                 # print('OBSTACLE: ', self.x_obs[obs_idx], self.y_obs[obs_idx])
                 # print('Bounds:', (x_bounds[0], x_bounds[1]),(y_bounds[0], y_bounds[1]))
-
-
-
-
                 return True
             
         return False
@@ -374,8 +378,8 @@ ka = 0.1*kv
 x_bounds = (0, 50)
 y_bounds = (0, 30)
 freq = 10
-prob_gs = 1
-n_iters = 500
+prob_gs = 0.1
+n_iters = 2000
 
 
 
@@ -383,12 +387,13 @@ n_iters = 500
 jerk = True
 elevation = False
 
-map_title = 'many_obstacles.npy'
+map_title = 'few_obstacles.npy'
 trav_map = None
 
 if map_title != 'apollo15_landing_site.npy': # ROS: 150-213, -4.3420014 // PYTHON: 150-470
     res = 10
     step = 1000 # we do not consider the step
+
 else:
     res = 2
     elevation = True
@@ -396,6 +401,9 @@ else:
     step = 10
     start = 50, 500  # apollo15: START (50, 500) --> (100, 50)
     goal = 100, 50
+
+if map_title == 'basic':
+    res = 1
 
 ######## INITIAL CONDITION ##########
 if map_title == 'empty.npy':
@@ -408,6 +416,9 @@ if map_title == 'few_obstacles.npy':
 if map_title == 'many_obstacles.npy':
     start = 0,0  
     goal = 28.38, 28.33
+if map_title == 'basic':
+    start = 2,2
+    goal = 45, 25
 
 obs = True
 
